@@ -6,8 +6,11 @@
   "author": "Grant Timmerman",
   "private": true,
   "license": "BSD",
+  "type": "module",
   "dependencies": {
+    "@prisma/client": "^6.16.2",
     "express": "~4.17.1",
+    "prisma": "^6.16.2",
     "socket.io": "^4.0.0"
   },
   "scripts": {
