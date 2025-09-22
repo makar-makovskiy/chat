@@ -13,6 +13,7 @@ CREATE TABLE "public"."User" (
 CREATE TABLE "public"."Message" (
     "id" SERIAL NOT NULL,
     "userID" INTEGER NOT NULL,
+    "username" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),

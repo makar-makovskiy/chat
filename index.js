@@ -34,10 +34,20 @@ io.on('connection', (socket) => {
     
     //  Добавляем сообщение в бд
     const message = await client.message.create({
-      data: {userID, text}
-    })
-  
+      data: {
+        userID: socket.userID,
+        username: socket.username,
+        text: text},
+    });
+
+          socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: text
+    });
+       console.log(message) //получчаем сообщение
    
+    
+   });
 
   // when the client emits 'add user', this listens and executes
   socket.on('add user', async (username) => {
@@ -48,14 +58,12 @@ io.on('connection', (socket) => {
       data: {username, password: ""}
     })
 
-    console.log(message) //получчаем сообщение
-    console.log(user);
-    
-  });
+      console.log(user);
+  
     //* *//
     // we store the username in the socket session for this client
     socket.username = username;
-    
+    socket.userID = user.id
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
