@@ -20,4 +20,14 @@ model User {
   password      String
   created_at    DateTime @default(now())
   updated_at    DateTime?
+  messages      Message[] 
+}
+
+model Message {
+  id            Int   @id @default(autoincrement())
+  userID        Int
+  text          String
+  created_at    DateTime @default(now())
+  updated_at    DateTime?
+  user          User  @relation(fields: [userID], references: [id])
 }

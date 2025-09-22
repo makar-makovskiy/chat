@@ -30,13 +30,14 @@ io.on('connection', (socket) => {
   let addedUser = false;
 
   // when the client emits 'new message', this listens and executes
-  socket.on('new message', (data) => {
-    // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data
-    });
-  });
+  socket.on('new message', async (text) => {
+    
+    //  Добавляем сообщение в бд
+    const message = await client.message.create({
+      data: {userID, text}
+    })
+  
+   
 
   // when the client emits 'add user', this listens and executes
   socket.on('add user', async (username) => {
@@ -47,11 +48,14 @@ io.on('connection', (socket) => {
       data: {username, password: ""}
     })
 
+    console.log(message) //получчаем сообщение
     console.log(user);
     
+  });
     //* *//
     // we store the username in the socket session for this client
     socket.username = username;
+    
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
